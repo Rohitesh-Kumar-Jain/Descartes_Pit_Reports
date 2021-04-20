@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+<body>
+
+
+<h1>HashcodeVisitor.java</h1>
+
+<table class="src">
+
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_1'/>
+1
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_1'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/**</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_2'/>
+2
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_2'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * SPDX-License-Identifier: (MIT OR CECILL-C)</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_3'/>
+3
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_3'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_4'/>
+4
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_4'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Copyright (C) 2006-2019 INRIA and contributors</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_5'/>
+5
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_5'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> *</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_6'/>
+6
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_6'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Spoon is available either under the terms of the MIT License (see LICENSE-MIT.txt) of the Cecill-C License (see LICENSE-CECILL-C.txt). You as the user are entitled to choose the terms under which to adopt Spoon.</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_7'/>
+7
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_7'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_8'/>
+8
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_8'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>package spoon.support.visitor;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_9'/>
+9
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_9'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_10'/>
+10
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_10'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import spoon.reflect.declaration.CtElement;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_11'/>
+11
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_11'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import spoon.reflect.declaration.CtImport;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_12'/>
+12
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_12'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import spoon.reflect.declaration.CtNamedElement;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_13'/>
+13
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_13'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import spoon.reflect.reference.CtReference;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_14'/>
+14
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_14'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>import spoon.reflect.visitor.CtInheritanceScanner;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_15'/>
+15
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_15'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_16'/>
+16
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_16'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>/** Responsible for computing CtElement.hashCode().</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_17'/>
+17
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_17'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> * Version that is fast and compatible with EqualVisitor</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_18'/>
+18
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_18'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''> */</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_19'/>
+19
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_19'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>public class HashcodeVisitor extends CtInheritanceScanner {</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_20'/>
+20
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_20'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_21'/>
+21
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_21'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;private int hashCode = 0;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_22'/>
+22
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_22'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_23'/>
+23
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_23'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_24'/>
+24
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_24'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void scanCtNamedElement(CtNamedElement e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_25'/>
+25
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_25'>1</a>
+<span>
+1. scanCtNamedElement : Removed all instructions in the method &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (e.getSimpleName() != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_26'/>
+26
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_26'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;hashCode += e.getSimpleName().hashCode();</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_27'/>
+27
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_27'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_28'/>
+28
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_28'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_29'/>
+29
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_29'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_30'/>
+30
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_30'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_31'/>
+31
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_31'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void scanCtReference(CtReference e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_32'/>
+32
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_32'>1</a>
+<span>
+1. scanCtReference : Removed all instructions in the method &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;hashCode += e.getSimpleName().hashCode();</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_33'/>
+33
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_33'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_34'/>
+34
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_34'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_35'/>
+35
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_35'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_36'/>
+36
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_36'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void visitCtImport(CtImport e) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_37'/>
+37
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_37'>1</a>
+<span>
+1. visitCtImport : Removed all instructions in the method &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;if (e.getReference() != null) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_38'/>
+38
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_38'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;&#9;scanCtReference(e.getReference());</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_39'/>
+39
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_39'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_40'/>
+40
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_40'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_41'/>
+41
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_41'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_42'/>
+42
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_42'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;@Override</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_43'/>
+43
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_43'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public void scan(CtElement element) {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_44'/>
+44
+</td>
+<td class='survived'>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_44'>1</a>
+<span>
+1. scan : Removed all instructions in the method &rarr; SURVIVED<br/>
+
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class='survived'>&#9;&#9;hashCode += 1;</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_45'/>
+45
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_45'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;super.scan(element);</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_46'/>
+46
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_46'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_47'/>
+47
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_47'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''></span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_48'/>
+48
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_48'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;public int getHasCode() {</span></pre></td></tr>
+
+
+<tr>
+<td class='covered'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_49'/>
+49
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_49'></a>
+<span>
+</span>
+</span>
+</td>
+<td class='covered'><pre><span  class=''>&#9;&#9;return hashCode;</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_50'/>
+50
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_50'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>&#9;}</span></pre></td></tr>
+
+
+<tr>
+<td class='na'>
+<a name='org.pitest.mutationtest.report.html.SourceFile@421ac4a0_51'/>
+51
+</td>
+<td class=''>
+<span class='pop'>
+<a href='#grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_51'></a>
+<span>
+</span>
+</span>
+</td>
+<td class=''><pre><span  class=''>}</span></pre></td></tr>
+
+
+
+<tr><td></td><td></td><td><h2>Mutations</h2></td></tr>
+
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@421ac4a0_25'>25</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_25'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scanCtNamedElement<br/><b>Killed by : </b>none</span></span> Removed all instructions in the method &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@421ac4a0_32'>32</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_32'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scanCtReference<br/><b>Killed by : </b>none</span></span> Removed all instructions in the method &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@421ac4a0_37'>37</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_37'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>visitCtImport<br/><b>Killed by : </b>none</span></span> Removed all instructions in the method &rarr; SURVIVED</p> 
+</td>
+</tr>
+<tr>
+<td><a href='#org.pitest.mutationtest.report.html.SourceFile@421ac4a0_44'>44</a></td> 
+<td></td>
+<td>
+
+<a name='grouporg.pitest.mutationtest.report.html.SourceFile@421ac4a0_44'/> 
+
+<p class='SURVIVED'><span class='pop'>1.<span><b>1</b><br/><b>Location : </b>scan<br/><b>Killed by : </b>none</span></span> Removed all instructions in the method &rarr; SURVIVED</p> 
+</td>
+</tr>
+
+</table>
+
+
+<h2>Active mutators</h2>
+<ul>
+<li class='mutator'>""</li>
+<li class='mutator'>"A"</li>
+<li class='mutator'>'A'</li>
+<li class='mutator'>'\40'</li>
+<li class='mutator'>(byte)0</li>
+<li class='mutator'>(byte)1</li>
+<li class='mutator'>(short)0</li>
+<li class='mutator'>(short)1</li>
+<li class='mutator'>0</li>
+<li class='mutator'>0.0</li>
+<li class='mutator'>0.0f</li>
+<li class='mutator'>0L</li>
+<li class='mutator'>1</li>
+<li class='mutator'>1.0</li>
+<li class='mutator'>1.0f</li>
+<li class='mutator'>1L</li>
+<li class='mutator'>empty</li>
+<li class='mutator'>false</li>
+<li class='mutator'>null</li>
+<li class='mutator'>true</li>
+<li class='mutator'>void</li>
+
+</ul>
+
+<h2>Tests examined</h2>
+<ul>
+<li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtYieldStatement](spoon.reflect.visitor.CtInheritanceScannerTest) (9 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtFieldRead](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtModuleRequirement](spoon.reflect.visitor.CtInheritanceScannerTest) (8 ms)</li><li>spoon.reflect.ast.CloneTest.testCloneCastConditional(spoon.reflect.ast.CloneTest) (229 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtAnnotation](spoon.reflect.visitor.CtInheritanceScannerTest) (12 ms)</li><li>spoon.reflect.ast.CloneTest.testCopyType(spoon.reflect.ast.CloneTest) (934 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtProvidedService](spoon.reflect.visitor.CtInheritanceScannerTest) (13 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtPackageExport](spoon.reflect.visitor.CtInheritanceScannerTest) (22 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtCatchVariable](spoon.reflect.visitor.CtInheritanceScannerTest) (29 ms)</li><li>spoon.reflect.ast.CloneTest.testCloneMethodsDeclaredInAST(spoon.reflect.ast.CloneTest) (7121 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtSwitch](spoon.reflect.visitor.CtInheritanceScannerTest) (17 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtTry](spoon.reflect.visitor.CtInheritanceScannerTest) (10 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtFor](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtScannerTest.testScannerContract(spoon.reflect.visitor.CtScannerTest) (2422 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtIntersectionTypeReference](spoon.reflect.visitor.CtInheritanceScannerTest) (13 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtLambda](spoon.reflect.visitor.CtInheritanceScannerTest) (15 ms)</li><li>spoon.reflect.declaration.CtTypeInformationTest.testGetSuperclass(spoon.reflect.declaration.CtTypeInformationTest) (848 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtAnnotationMethod](spoon.reflect.visitor.CtInheritanceScannerTest) (14 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtOperatorAssignment](spoon.reflect.visitor.CtInheritanceScannerTest) (13 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtThisAccess](spoon.reflect.visitor.CtInheritanceScannerTest) (8 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtTypeParameterReference](spoon.reflect.visitor.CtInheritanceScannerTest) (13 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtTryWithResource](spoon.reflect.visitor.CtInheritanceScannerTest) (15 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtAnnotationFieldAccess](spoon.reflect.visitor.CtInheritanceScannerTest) (379 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtCatchVariableReference](spoon.reflect.visitor.CtInheritanceScannerTest) (21 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtLocalVariable](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtTypeAccess](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtLocalVariableReference](spoon.reflect.visitor.CtInheritanceScannerTest) (51 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtStatementList](spoon.reflect.visitor.CtInheritanceScannerTest) (15 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtInterface](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtComment](spoon.reflect.visitor.CtInheritanceScannerTest) (9 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtCodeSnippetStatement](spoon.reflect.visitor.CtInheritanceScannerTest) (44 ms)</li><li>spoon.reflect.ast.CloneTest.testCloneListener(spoon.reflect.ast.CloneTest) (4310 ms)</li><li>spoon.reflect.visitor.CtScannerTest.testDequeSCanner(spoon.reflect.visitor.CtScannerTest) (76 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtPackageDeclaration](spoon.reflect.visitor.CtInheritanceScannerTest) (8 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtUsedService](spoon.reflect.visitor.CtInheritanceScannerTest) (9 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtBreak](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtEnum](spoon.reflect.visitor.CtInheritanceScannerTest) (18 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtUnboundVariableReference](spoon.reflect.visitor.CtInheritanceScannerTest) (12 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtModule](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtAnnotationType](spoon.reflect.visitor.CtInheritanceScannerTest) (13 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtLiteral](spoon.reflect.visitor.CtInheritanceScannerTest) (10 ms)</li><li>spoon.reflect.declaration.CtTypeInformationTest.testGetAllMethodsReturnsTheRightNumber(spoon.reflect.declaration.CtTypeInformationTest) (121 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtArrayWrite](spoon.reflect.visitor.CtInheritanceScannerTest) (12 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtClass](spoon.reflect.visitor.CtInheritanceScannerTest) (31 ms)</li><li>spoon.reflect.ast.CloneTest.testIssue3389(spoon.reflect.ast.CloneTest) (30 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtConditional](spoon.reflect.visitor.CtInheritanceScannerTest) (7 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtPackage](spoon.reflect.visitor.CtInheritanceScannerTest) (15 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtConstructorCall](spoon.reflect.visitor.CtInheritanceScannerTest) (17 ms)</li><li>spoon.reflect.visitor.CtBFSIteratorTest.testCtElementIteration(spoon.reflect.visitor.CtBFSIteratorTest) (608 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtModuleReference](spoon.reflect.visitor.CtInheritanceScannerTest) (6 ms)</li><li>spoon.reflect.declaration.CtTypeInformationTest.testGetAllMethodsWontReturnOverriddenMethod(spoon.reflect.declaration.CtTypeInformationTest) (498 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtVariableWrite](spoon.reflect.visitor.CtInheritanceScannerTest) (21 ms)</li><li>spoon.reflect.ast.CloneTest.testCopyMethod(spoon.reflect.ast.CloneTest) (115 ms)</li><li>spoon.reflect.declaration.CtTypeInformationTest.testClassTypingContextContinueScanning(spoon.reflect.declaration.CtTypeInformationTest) (125 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtBlock](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtConstructor](spoon.reflect.visitor.CtInheritanceScannerTest) (53 ms)</li><li>spoon.reflect.visitor.ImportCleanerTest.testDoesNotDuplicateUnresolvedImports(spoon.reflect.visitor.ImportCleanerTest) (31 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtMethod](spoon.reflect.visitor.CtInheritanceScannerTest) (26 ms)</li><li>spoon.reflect.visitor.CtVisitorTest.testMethodsInVisitor(spoon.reflect.visitor.CtVisitorTest) (2572 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtSuperAccess](spoon.reflect.visitor.CtInheritanceScannerTest) (14 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtParameterReference](spoon.reflect.visitor.CtInheritanceScannerTest) (9 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtCatch](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtIteratorTest.testCtElementIteration(spoon.reflect.visitor.CtIteratorTest) (493 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtEnumValue](spoon.reflect.visitor.CtInheritanceScannerTest) (12 ms)</li><li>spoon.reflect.reference.CtTypeReferenceTest.box(spoon.reflect.reference.CtTypeReferenceTest) (1196 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtDo](spoon.reflect.visitor.CtInheritanceScannerTest) (10 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtUnaryOperator](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtScannerTest.testScan(spoon.reflect.visitor.CtScannerTest) (141 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtCase](spoon.reflect.visitor.CtInheritanceScannerTest) (12 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtJavaDoc](spoon.reflect.visitor.CtInheritanceScannerTest) (12 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtTextBlock](spoon.reflect.visitor.CtInheritanceScannerTest) (10 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtNewArray](spoon.reflect.visitor.CtInheritanceScannerTest) (9 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtNewClass](spoon.reflect.visitor.CtInheritanceScannerTest) (16 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtBinaryOperator](spoon.reflect.visitor.CtInheritanceScannerTest) (17 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtFieldWrite](spoon.reflect.visitor.CtInheritanceScannerTest) (14 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerMethodsTest.testMethodsInInheritanceScanner(spoon.reflect.visitor.CtInheritanceScannerMethodsTest) (3127 ms)</li><li>spoon.reflect.visitor.CtScannerTest.testScannerCallsAllProperties(spoon.reflect.visitor.CtScannerTest) (16253 ms)</li><li>spoon.reflect.ast.AstCheckerTest.testExecutableReference(spoon.reflect.ast.AstCheckerTest) (118 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtCodeSnippetExpression](spoon.reflect.visitor.CtInheritanceScannerTest) (28 ms)</li><li>spoon.reflect.visitor.ImportCleanerTest.testDoesNotImportInheritedStaticMethod(spoon.reflect.visitor.ImportCleanerTest) (30 ms)</li><li>spoon.reflect.ast.AstCheckerTest.testPushToStackChanges(spoon.reflect.ast.AstCheckerTest) (3148 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtExecutableReference](spoon.reflect.visitor.CtInheritanceScannerTest) (8 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtSynchronized](spoon.reflect.visitor.CtInheritanceScannerTest) (10 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtAssert](spoon.reflect.visitor.CtInheritanceScannerTest) (7 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtContinue](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtArrayRead](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtAnonymousExecutable](spoon.reflect.visitor.CtInheritanceScannerTest) (15 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtIf](spoon.reflect.visitor.CtInheritanceScannerTest) (10 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtThrow](spoon.reflect.visitor.CtInheritanceScannerTest) (10 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtAssignment](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtWildcardReference](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtSwitchExpression](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.factory.GenerateParentlessPackageTest.generateParentlessPackage(spoon.reflect.factory.GenerateParentlessPackageTest) (7 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtFieldReference](spoon.reflect.visitor.CtInheritanceScannerTest) (13 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtTypeParameter](spoon.reflect.visitor.CtInheritanceScannerTest) (17 ms)</li><li>spoon.reflect.ast.AstCheckerTest.testAvoidSetCollectionSavedOnAST(spoon.reflect.ast.AstCheckerTest) (22753 ms)</li><li>spoon.reflect.declaration.UnknownDeclarationTest.testUnknownCalls(spoon.reflect.declaration.UnknownDeclarationTest) (34 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtArrayTypeReference](spoon.reflect.visitor.CtInheritanceScannerTest) (26 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtInvocation](spoon.reflect.visitor.CtInheritanceScannerTest) (15 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtForEach](spoon.reflect.visitor.CtInheritanceScannerTest) (15 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtTypeReference](spoon.reflect.visitor.CtInheritanceScannerTest) (11 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtTypeMemberWildcardImportReference](spoon.reflect.visitor.CtInheritanceScannerTest) (17 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtExecutableReferenceExpression](spoon.reflect.visitor.CtInheritanceScannerTest) (15 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtVariableRead](spoon.reflect.visitor.CtInheritanceScannerTest) (9 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtJavaDocTag](spoon.reflect.visitor.CtInheritanceScannerTest) (10 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtWhile](spoon.reflect.visitor.CtInheritanceScannerTest) (12 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.code.CtReturn](spoon.reflect.visitor.CtInheritanceScannerTest) (8 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtField](spoon.reflect.visitor.CtInheritanceScannerTest) (21 ms)</li><li>spoon.reflect.reference.CtTypeReferenceTest.unbox(spoon.reflect.reference.CtTypeReferenceTest) (18 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.reference.CtPackageReference](spoon.reflect.visitor.CtInheritanceScannerTest) (12 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtParameter](spoon.reflect.visitor.CtInheritanceScannerTest) (13 ms)</li><li>spoon.reflect.visitor.CtInheritanceScannerTest.testCtInheritanceScanner[interface spoon.reflect.declaration.CtImport](spoon.reflect.visitor.CtInheritanceScannerTest) (10 ms)</li>
+</ul>
+
+<br/>
+
+Report generated by <a href='http://pitest.org'>PIT</a> 1.6.4
+
+</body>
+</html>
