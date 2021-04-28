@@ -1,0 +1,27 @@
+<plugin>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-maven</artifactId>
+            <version>1.6.4</version>
+            <configuration>
+                <mutationEngine>descartes</mutationEngine>
+                <targetClasses>
+                    <param>spoon.compiler.*</param>
+                    <param>spoon.experimental.*</param>
+                    <param>spoon.javadoc.*</param>
+                    <param>spoon.legacy.*</param>
+                    <param>spoon.metamodel.*</param>
+                    <param>spoon.pattern.*</param>
+                </targetClasses>
+                <targetTests>
+                    <param>spoon.test.*</param>
+                </targetTests>
+                <skipFailingTests>true</skipFailingTests>
+            </configuration>
+            <dependencies>
+                <dependency>
+                    <groupId>eu.stamp-project</groupId>
+                    <artifactId>descartes</artifactId>
+                    <version>1.3.1</version>
+                </dependency>
+            </dependencies>
+        </plugin>
